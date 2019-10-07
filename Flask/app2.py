@@ -2,9 +2,9 @@ from flask import Flask, request
 from flasgger import Swagger
 from nameko.standalone.rpc import ClusterRpcProxy
 
-app=Flask(__name__)
+app = Flask(__name__)
 Swagger(app)
-CONFIG={'AMQP_URI': "amqp://guest:guest@localhost"}
+CONFIG = {'AMQP_URI': "amqp://guest:guest@localhost"}
 
 
 @app.route('/sender', methods=['POST'])
@@ -28,10 +28,10 @@ def sender():
     """
 
     email = request.json.get('email')
-    msg = "API for Nameko"
+    msg = "Hello, Mrgon96"
     subject = "Nameko Send Mail Microservice"
     with ClusterRpcProxy as rpc:
-        rpc.send_mail.send.async(email, subject, msg)
+        rpc.send_mail.send.async(email, msg)
         return "Email Sent", 200
 
 

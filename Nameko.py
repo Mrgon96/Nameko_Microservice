@@ -1,13 +1,18 @@
 import json
 from nameko.web.handlers import http
 from werkzeug.wrappers import Response
+from nameko.rpc import rpc
 
 class HttpService:
     name = "http_service"
 
-    @http('GET', '/get/<int:value>')
-    def get_method(self, request, value):
-        return json.dumps({'Number': value})
+    @rpc
+    def get(self, number):
+        return json.dumps({'Number': number})
+
+    # @http('GET', '/get/<int:value>')
+    # def get_method(self, request, value):
+    #     return json.dumps({'Number': value})
 
     @http('POST', '/post')
     def do_post(self, request):
